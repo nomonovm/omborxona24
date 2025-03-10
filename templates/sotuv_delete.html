@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Sotuv ma'lumotlarini o‘chirish</h2>
+    <p>"{{ sotuv.mijoz.ism }}: {{ sotuv.miqdor }} {{ sotuv.mahsulot.olchov }} - {{ sotuv.mahsulot.nom }}"ni o‘chirishni xohlaysizmi?</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Ha, o‘chirish</button>
+      <a href="{% url 'sotuvlar' %}" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+  </div>
+{% endblock %}

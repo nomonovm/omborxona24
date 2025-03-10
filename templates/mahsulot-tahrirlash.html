@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .edit-product-container {
+        margin-left: 70px;
+        margin-top: 0px;
+        max-width: 500px;
+    }
+</style>
+
+<div class="edit-product-container">
+    <form id="edit-product-form" method="post">
+        {% csrf_token %}
+        <label for="new-product-name">Nom:</label>
+        <input type="text" name="nom" id="new-product-name"
+               class="form-control" value="{{ mahsulot.nom }}" required>
+        <br>
+
+        <label for="new-product-brend">Brend:</label>
+        <input type="text" name="brend" id="new-product-brend"
+               class="form-control" value="{{ mahsulot.brend }}" required>
+        <br>
+
+        <label for="new-product-price">Kelish narxi:</label>
+        <input type="number" name="narx1" id="new-product-price"
+               class="form-control" value="{{ mahsulot.narx1 }}" required>
+        <br>
+
+        <label for="new-product-price2">Sotish narxi:</label>
+        <input type="number" name="narx2" id="new-product-price2"
+               class="form-control" value="{{ mahsulot.narx2|default_if_none:'' }}">
+        <br>
+
+        <label for="new-product-amount">Dona qoldi:</label>
+        <input type="number" name="miqdor" id="new-product-amount"
+               class="form-control" value="{{ mahsulot.miqdor }}" required>
+        <br>
+
+        <label for="new-product-unit">O'lchov uslubi:</label>
+        <input type="text" name="olchov" id="new-product-unit"
+               class="form-control" value="{{ mahsulot.olchov }}" required>
+        <br>
+
+        <!-- Modal footer -->
+        <button type="submit" class="btn btn-success">Yangilash</button>
+        <a href="{% url 'mahsulotlar' %}">
+            <button type="button" class="btn btn-danger">Yopish</button>
+        </a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block section %} Sotuvlar {% endblock %}
+{% block sotuvlar_active %} active {% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+    <div class="card card-dark">
+        <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Statistika qo'shish
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table" style="text-align: center;">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 15px">T/r</th>
+                    <th scope="col" style="width: 255px; text-align: center;">Product</th>
+                    <th scope="col" style="text-align: center;">Client</th>
+                    <th scope="col" style="text-align: center;">Sana</th>
+                    <th scope="col" style="text-align: center;">Miqdor</th>
+                    <th scope="col" style="text-align: center;">Umumiy summa</th>
+                    <th scope="col" style="text-align: center;">To'landi</th>
+                    <th scope="col" style="text-align: center;">Qarz</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for sotuv in sotuvlar %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}.</th>
+                    <td>{{ sotuv.mahsulot.nom }}, {{ sotuv.nahsulot.brend }}</td>
+                    <td>{{ sotuv.mijoz.ism }}, {{ sotuv.mijoz.dokon }}</td>
+                    <td>{{ sotuv.sana|date:"Y.m.d" }}</td>
+                    <td>{{ sotuv.miqdor }} {{ sotuv.mahsulot.olchov }}</td>
+                    <td>{{ sotuv.jami_summa }} so'm</td>
+                    <td>{{ sotuv.tolandi }} so'm</td>
+                    <td>{{ sotuv.qarz }} so'm</td>
+                    <td>
+                        <a href="/sotuvlar/{{ sotuv.id }}/tahrirlash/">
+                            <button type="submit" class="btn btn-warning" data-toggle="modal">Tahrirlash</button>
+                        </a>
+                        <a href="/sotuvlar/{{ sotuv.id }}/delete/">
+                        <button type="submit" class="btn btn-danger" data-toggle="modal">O'chirish</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-dark">
+                <h4 class="modal-title">Yangi statistika</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <form id="new-product-form" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <label for="product">Product:</label>
+                    <select name="mahsulot_id" id="product" class="form-control">
+                        {% for mahsulot in mahsulotlar %}
+                        <option value="{{ mahsulot.id }}">{{ mahsulot.nom }} ({{ mahsulot.narx2 }} so'm)</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label for="client">Mijoz:</label>
+                    <select name="mijoz_id" id="client" class="form-control">
+                        {% for mijoz in mijozlar %}
+                        <option value="{{ mijoz.id }}">{{ mijoz.ism }} ({{ mijoz.dokon }})</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <label for="sana">Sana:</label>
+                    <input type="datetime-local" name="sana" id="sana" class="form-control" required>
+                    <br>
+                    <label for="miqdor">Miqdor:</label>
+                    <input type="number" name="miqdor" id="miqdor" class="form-control" required>
+                    <br>
+                    <label for="jami_summa">Jami summa:</label>
+                    <input type="number" name="jami_summa" id="jami_summa" class="form-control">
+                    <br>
+                    <label for="tolandi">To'landi:</label>
+                    <input type="number" name="tolandi" id="tolandi" class="form-control">
+                    <br>
+                    <label for="qarz">Qarz:</label>
+                    <input type="number" name="qarz" id="qarz" class="form-control">
+                    <br>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Qo`shish</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

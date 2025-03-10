@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .edit-product-container {
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+</style>
+
+<div class="edit-product-container">
+    <form method="post" id="edit-product-form">
+        {% csrf_token %}
+        <label for="mahsulot">Mahsulot:</label>
+        <input type="text" name="mahsulot" value="{{ sotuv.mahsulot.nom }}" id="mahsulot"
+               class="form-control" required>
+        <br>
+        <label for="edit-product-client">Mijoz:</label>
+        <input type="text" name="mijoz" value="{{ sotuv.mijoz.ism }}" id="edit-product-client"
+               class="form-control" required>
+        <br>
+        <label for="edit-product-amount">Miqdori:</label>
+        <input type="number" name="miqdor" value="{{ sotuv.miqdor }}" id="edit-product-amount"
+               class="form-control" required>
+        <br>
+        <label for="edit-product-price">Jami summa:</label>
+        <input type="number" name="jami_summa" value="{{ sotuv.jami_summa }}" id="edit-product-price"
+               class="form-control" required>
+        <br>
+        <label for="edit-product-tolandi">To'landi:</label>
+        <input type="number" name="tolandi" value="{{ sotuv.tolandi }}" id="edit-product-tolandi"
+               class="form-control">
+        <br>
+        <label for="edit-product-qarz">Qarz:</label>
+        <input type="number" name="qarz" value="{{ sotuv.qarz }}" id="edit-product-qarz"
+               class="form-control">
+        <br>
+
+        <!-- Modal footer -->
+        <button type="submit" class="btn btn-success">Yangilash</button>
+        <a href="/mijozlar/">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+        </a>
+
+    </form>
+</div>
+
+{% endblock %}

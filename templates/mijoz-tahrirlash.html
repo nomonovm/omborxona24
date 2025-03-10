@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .edit-product-container {
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+</style>
+
+<div class="edit-product-container">
+    <form method="post" id="edit-product-form">
+        {% csrf_token %}
+        <label for="ism">Ism:</label>
+        <input type="text" name="ism" value="{{ mijoz.ism }}" id="ism"
+               class="form-control" required>
+        <br>
+        <label for="edit-product-dokon">Do'kon nomi:</label>
+        <input type="text" name="dokon" value="{{ mijoz.dokon }}" id="edit-product-dokon"
+               class="form-control" required>
+        <br>
+        <label for="edit-product-tel">Telefon raqami:</label>
+        <input type="text" name="tel" value="{{ mijoz.tel }}" id="edit-product-tel"
+               class="form-control" required>
+        <br>
+        <label for="edit-product-manzil">Manzili:</label>
+        <input type="text" name="manzil" value="{{ mijoz.manzil }}" id="edit-product-manzil"
+               class="form-control" required>
+        <br>
+        <label for="edit-product-qarz">Qarz:</label>
+        <input type="number" name="qarz" value="{{ mijoz.qarz }}" id="edit-product-qarz"
+               class="form-control">
+        <br>
+
+        <!-- Modal footer -->
+        <button type="submit" class="btn btn-success">Yangilash</button>
+        <a href="/mijozlar/">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+        </a>
+
+    </form>
+</div>
+
+{% endblock %}
