@@ -31,7 +31,7 @@ class MahsulotlarView(View):
                 miqdor=request.POST.get('miqdor'),
                 olchov=request.POST.get('olchov'),
                 oxirgi_sana=datetime.now() if request.POST.get('sana') == "" else request.POST.get('sana'),
-                bolim=Bolim.objects.filter(bolim=request.user.sotuvchi.bolim)
+                bolim=request.user.sotuvchi.bolim
             )
             return redirect('mahsulotlar')
         return redirect('login')
@@ -92,7 +92,6 @@ class MijozlarView(View):
             telefon = request.POST.get('mijoz-tel')
             manzil = request.POST.get('mijoz-manzil')
             qarz = 0.0
-            bolim = Bolim.objects.all()
 
             if ism and dokon and telefon:
                 Mijoz.objects.create(
@@ -101,7 +100,6 @@ class MijozlarView(View):
                     tel=telefon,
                     manzil=manzil,
                     qarz=qarz,
-                    bolim=bolim
                 )
 
             return redirect('mijozlar')

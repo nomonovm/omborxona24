@@ -2,19 +2,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import *
 
+
 def ogohlantirish_view(request):
     return render(request, 'ogohlantirish.html')
 
+
 class SotuvlarView(View):
-    def get(self,request):
+    def get(self, request):
         if request.user.is_authenticated:
             sotuvlar = Sotuv.objects.filter(bolim=request.user.sotuvchi.bolim)
-            mijozlar = Mijoz.objects.filter(bolim=request.user.sotuvchi.bolim)
+            mijozlar = Mijoz.objects.all()
             mahsulotlar = Mahsulot.objects.filter(bolim=request.user.sotuvchi.bolim)
-            context={
-                "sotuvlar":sotuvlar,
-                "mahsulotlar":mahsulotlar,
-                "mijozlar":mijozlar,
+            context = {
+                "sotuvlar": sotuvlar,
+                "mahsulotlar": mahsulotlar,
+                "mijozlar": mijozlar,
             }
             return render(request, "sotuvlar.html", context)
         return redirect('login')
@@ -30,20 +32,26 @@ class SotuvlarView(View):
             miqdor = float(request.POST.get('miqdor'))
 
             if miqdor > mahsulot.miqdor:
-                return render(request, "ogohlantirish.html", {'messege':"Mahsulot yetarli emas!"})
-            elif request.POST.get('jami_summa')=='' and request.POST.get('tolandi')=='':
-                qarz=0
-                jami_summa=miqdor*mahsulot.narx1
-                tolandi=miqdor*mahsulot.narx1
-            elif request.POST.get('jami_summa')=='':
-                jami_summa=miqdor*mahsulot.narx1
-                tolandi=jami_summa
-                qarz=0
-            elif request.POST.get('tolandi')=='':
-                jami_summa=miqdor*mahsulot.narx1
-                qarz=jami_summa-float(tolandi)
-            elif qarz==None:
-                qarz=float(jami_summa)-float(tolandi)
+                return render(request, "ogohlantirish.html", {'message': "Mahsulot yetarli emas!"})
+
+            elif (request.POST.get('qarz') and request.POST.get('jami_summa') == '' and
+                  request.POST.get('tolandi') == ''):
+                jami_summa = miqdor * mahsulot.narx2
+                tolandi = jami_summa - float(request.POST.get('qarz'))
+
+            elif request.POST.get('jami_summa') == '' and request.POST.get('tolandi') == '':
+                qarz = 0
+                jami_summa = miqdor * mahsulot.narx2
+                tolandi = miqdor * mahsulot.narx2
+            elif request.POST.get('jami_summa') == '':
+                jami_summa = miqdor * mahsulot.narx2
+                tolandi = jami_summa
+                qarz = 0
+            elif request.POST.get('tolandi') == '':
+                jami_summa = miqdor * mahsulot.narx2
+                qarz = jami_summa - float(tolandi)
+            elif qarz == None:
+                qarz = float(jami_summa) - float(tolandi)
             Sotuv.objects.create(
                 mahsulot=mahsulot,
                 mijoz=mijoz,
@@ -61,6 +69,7 @@ class SotuvlarView(View):
             mahsulot.save()
             return redirect('sotuvlar')
         return redirect('login')
+
 
 class SotuvTahrirlashView(View):
     def get(self, request, pk):
@@ -81,6 +90,7 @@ class SotuvTahrirlashView(View):
             sotuv.qarz = request.POST.get('qarz')
             sotuv.save()
             return redirect('sotuvlar')
+
 
 def sotuv_delete(request, pk):
     if request.user.is_authenticated:

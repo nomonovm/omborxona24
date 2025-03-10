@@ -25,7 +25,7 @@
 <!--
 `body` tag options:
 
-  Apply one or more of the following classes to to the body tag
+  Apply one or more of the following classes to the body tag
   to get the desired effect
 
   * sidebar-collapse
@@ -60,7 +60,7 @@
         <a href="../index.html" class="brand-link">
             <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">{{ user.sotuvchi.bolim}}</span>
+            <span class="brand-text font-weight-light">{{ user.sotuvchi.bolim }}</span>
         </a>
 
         <!-- Sidebar -->
@@ -68,7 +68,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="{% if user.sotuvchi.rasm %} {{ user.sotuvchi.rasm }} {% else %} {% static 'dist/img/AdminLTELogo.png' %} {% endif %}"
+                    <img src="{% if user.sotuvchi.rasm %}{{ user.sotuvchi.rasm.url }}{% else %}{% static 'dist/img/AdminLTELogo.png' %}{% endif %}"
                          class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
@@ -82,13 +82,13 @@
                     data-accordion="false">
                     <li class="nav-header">Menu</li>
                     <li class="nav-item">
-                        <a href="/sotuvlar/" class="nav-link {% block sotuv_active %}{% endblock %}">
+                        <a href="/sotuvlar/" class="nav-link {% block sotuvlar_active %}{% endblock %}">
                             <i class="nav-icon far fa-circle text-warning"></i>
                             <p>Sotuvlar</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/mijozlar/" class="nav-link {% block mijoz_active %}{% endblock %}">
+                        <a href="/mijozlar/" class="nav-link {% block mijozlar_active %}{% endblock %}">
                             <i class="nav-icon far fa-circle text-danger"></i>
                             <p class="text">Mijozlar</p>
                         </a>
@@ -136,10 +136,10 @@
 
         <!-- OPTIONAL SCRIPTS -->
         <script src="/static/plugins/chart.js/Chart.min.js"></script>
-<!--        &lt;!&ndash; AdminLTE for demo purposes &ndash;&gt;-->
-<!--        <script src="/static/dist/js/demo.js"></script>-->
-<!--        &lt;!&ndash; AdminLTE dashboard demo (This is only for demo purposes) &ndash;&gt;-->
-<!--        <script src="/static/dist/js/pages/dashboard3.js"></script>-->
+        <!--        &lt;!&ndash; AdminLTE for demo purposes &ndash;&gt;-->
+        <!--        <script src="/static/dist/js/demo.js"></script>-->
+        <!--        &lt;!&ndash; AdminLTE dashboard demo (This is only for demo purposes) &ndash;&gt;-->
+        <!--        <script src="/static/dist/js/pages/dashboard3.js"></script>-->
     </div>
 </div>
 </body>

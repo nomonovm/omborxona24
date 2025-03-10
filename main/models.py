@@ -30,7 +30,6 @@ class Mijoz(models.Model):
     tel = models.CharField(max_length=15)
     manzil = models.TextField(blank=True, null=True)
     qarz = models.FloatField(validators=[MinValueValidator(0.0)], blank=True, null=True)
-    bolim = models.ForeignKey(Bolim, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.ism

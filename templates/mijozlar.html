@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
-{% block mijozlar_active %} active {% endblock %}
+
 {% block section %}Mijozlar{% endblock %}
+{% block mijozlar_active %} active {% endblock %}
 
 {% block content %}
 <!-- /.content-header -->
@@ -68,23 +69,23 @@
                 {% csrf_token %}
                 <div class="modal-body">
                     <label for="ism">Ismi:</label>
-                    <input type="text" name="ism" placeholder="Mijoz to'liq ismi..." id="ism"
+                    <input type="text" name="mijoz-ism" placeholder="Mijoz to'liq ismi..." id="ism"
                            class="form-control" required>
                     <br>
                     <label for="dokon">Do'kon nomi:</label>
-                    <input type="text" name="dokon" placeholder="Do'kon nomi..." id="dokon"
+                    <input type="text" name="mijoz-dokon" placeholder="Do'kon nomi..." id="dokon"
                            class="form-control" required>
                     <br>
                     <label for="tel">Telefon raqami:</label>
-                    <input type="text" name="tel" placeholder="Telefon raqami..." id="tel"
+                    <input type="text" name="mijoz-tel" placeholder="Telefon raqami..." id="tel"
                            class="form-control" required>
                     <br>
                     <label for="manzil">Manzili:</label>
-                    <input type="text" name="manzil" placeholder="Mijoz manzili..." id="manzil"
+                    <input type="text" name="mijoz-manzil" placeholder="Mijoz manzili..." id="manzil"
                            class="form-control" required>
                     <br>
                     <label for="qarz">Qarz:</label>
-                    <input type="number" name="qarz" placeholder="Mijoz manzili..." id="qarz"
+                    <input type="number" name="mijoz-qarz" placeholder="Mijoz qarzi..." id="qarz"
                            class="form-control" required>
                     <br>
                 </div>
